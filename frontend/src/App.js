@@ -1,22 +1,24 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import PageRender from "./PageRender";
-import Register from "./pages/register";
-import Login from "./pages/login";
-import Home from "./components/Home";
+import { ToastContainer } from "react-toastify";
+import "./App.css";
+import Router from "./router/router";
+import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { darkTheme, theme } from "./theme/Theme";
 
 const App = () => {
-  return(
-    <Router>
-      <input type="checkbox" id="theme" />
-      <div className='App'>
-        <div className="main">
-          <Route exact path="/:page" component={PageRender} />
-          <Route exact path="/:page/:id" component={PageRender} />
-        </div>   
-      </div>
-    </Router>
-  )
+  const { darkMode } = useSelector((store) => store.mode);
+  return (
+    <body className={darkMode ? "dark" : ""}>
+      <ThemeProvider theme={darkMode ? darkTheme : theme}>
+        <CssBaseline />
+        <div className="App">
+          <ToastContainer />
+          <Router />
+        </div>
+      </ThemeProvider>
+    </body>
+  );
 }
 
 export default App;
